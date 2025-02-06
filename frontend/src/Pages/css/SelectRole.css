@@ -1,0 +1,38 @@
+.ec {
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    justify-content: center;
+    align-items: center;
+    height: 115vh;
+}
+
+#textbox{
+    background-color: #fb8500;
+    height: 1cm;
+    width: 30cm;
+    margin-bottom: 90px;
+}
+.welcomeText {
+    margin-bottom: 90px; /* Add spacing between text and button */
+    font-size: 24px; /* Adjust text size as needed */
+    font-weight: bold;
+    text-align: center; /* Center align the text */
+    color: #023047; /* Text color to match the theme */
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+
+}
+
+
+.btn {
+    background-color: #023047;
+    color: aliceblue;
+    box-shadow: 0 5px 6px rgba(0, 0, 0, 0.1); /* Add shadow */
+    border: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth animation */
+}
+
+.btn:hover,
+.btn:focus {
+    transform: scale(1.1); /* Slightly enlarge the button */
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* More pronounced shadow */
+}

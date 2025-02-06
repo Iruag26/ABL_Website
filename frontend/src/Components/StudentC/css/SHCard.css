@@ -1,0 +1,38 @@
+.activity-card {
+    background-color: #2B2B2E !important;
+    border: solid rgb(255, 255, 255) 2px;
+    color: white;
+    border-radius: 10px;
+    padding: 5px;
+    display: flex; /* Add flexbox */
+    flex-direction: column; /* Ensure vertical alignment */
+    align-items: center; /* Center items horizontally */
+    justify-content: center; /* Center items vertically */
+}
+.card-title{
+    margin: 10px;
+}
+.list-group {
+    background-color: white !important;
+    color: #2B2B2E;
+    border: solid rgb(255, 255, 255) 2px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 7cm;
+    margin: 0 auto; /* Center horizontally if not using flex on parent */
+    align-items: left; /* Center content within the list */
+    padding: 10px; /* Add padding if needed */
+}
+
+.card-body{
+    margin: 10px;
+}
+
+.card-img-top{
+    height: 4cm;
+    width: 93%;
+    border: solid white 2px;
+    margin: 5px 10px 0px 10px; 
+}

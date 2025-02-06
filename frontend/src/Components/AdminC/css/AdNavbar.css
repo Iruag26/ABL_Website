@@ -1,0 +1,36 @@
+.navbar {
+    background-color: #ffb703;
+    border: 2px solid #023047;
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+    top: 3.3cm; /* Adjust based on Topbar height */
+    z-index: 999; /* Keep it below Topbar */
+    margin-bottom: 100px;
+
+}
+
+
+.navbar-nav{
+  display: flex; /* Use flexbox */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  width: 100%; /* Ensure the nav takes full width */
+  margin: 0 20px; /* Add horizontal spacing between links */
+}
+.nav-link{
+    color: #023047;
+}
+.nav-link:hover{
+    color: white;
+    transition: ease-in-out;
+}
+/*  
+
+#8ecae6: Light Blue
+#219ebc: Teal Blue
+#023047: Deep Navy Blue
+#ffb703: Bright Yellow-Orange
+#fb8500: Bright Orange
+
+*/

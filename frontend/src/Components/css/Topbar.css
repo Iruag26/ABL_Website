@@ -1,0 +1,54 @@
+.topbar {
+  background-image: url('./topbarbg.png'); 
+  background-size: cover;
+  background-position: center; 
+  height: 3.3cm; /* Adjust height as needed */
+  position: fixed;  /* Fixes the topbar to the top of the screen */
+  top: 0;           /* Aligns it to the top */
+  left: 0;          /* Aligns it to the left */
+  right: 0;         /* Ensures it stretches across the page */
+  z-index: 1000;    /* Ensures it stays above other content */
+  display: flex;
+  justify-content: flex-start; /* Aligns items to the left */
+  align-items: center;  /* Vertically centers content */
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.navbar-brand {
+  position: relative;
+  margin-right: 20px;  /* Adds space between logo and text */
+}
+
+.img {
+  width: 95px;
+  height: 95px;
+  margin-left: 7cm;
+}
+
+.text-container {
+  display: flex;
+  flex-direction: column;  /* Stack text vertically */
+  justify-content: center; /* Vertically center the text */
+  margin-left: 120px;  /* Space between the logo and the text */
+}
+
+.ag1, .ag3 {
+  font-size: 0.8em;  /* Small font size */
+  color: white; /* Optional: Make the text color white */
+}
+
+.ag2 {
+  font-size: 1.5em;  /* Larger font size */
+  font-weight: bold;
+  color: white; /* Optional: Make the text color white */
+}
+
+/* Optional: Add some margin between the text blocks */
+.ag1 {
+  margin-bottom: 5px;
+}
+
+.ag3 {
+  margin-top: 5px;
+}
