@@ -1,0 +1,32 @@
+.student-details-container {
+    margin-top: 8cm; /* Adjust if needed */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers everything inside this div */
+}
+
+/* Ensure table is properly spaced and centered */
+.details-table {
+    margin-top: 30px;
+    width: 89%;
+    border-collapse: collapse;
+    text-align: left;
+    border: 2px solid black; 
+}
+
+.details-table th, 
+.details-table td {
+    border: 1px solid black; /* Border around each cell */
+    padding: 10px; /* Padding inside each cell */
+    text-align: center; /* Center text inside cells */
+}
+
+/* Header row styling */
+.details-table th {
+    background-color: #343a40;
+    color: white;
+    font-weight: bold;
+}
+
+

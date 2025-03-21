@@ -1,0 +1,48 @@
+/* Ensure page content starts below navbar */
+.view-students-container {
+    margin-top: 5cm; /* Adjust if needed */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers everything inside this div */
+}
+
+/* Ensure table is properly spaced and centered */
+.table-student-list, .details-table{
+    width: 60%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+/* Proper table styling */
+.table-student-list th,
+.table-student-list td {
+    text-align: center;
+    padding: 12px;
+    border: 1px solid #000000;
+}
+
+.table-student-list th {
+    background-color: #343a40;
+    color: white;
+}
+.action-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    margin: 0 5px;
+}
+
+.approve-btn {
+    color: green;
+}
+
+.reject-btn {
+    color: red;
+}
+.mentorviewstudentlistheader{
+    margin-left: 3cm;
+    margin-top: 2cm;
+
+}

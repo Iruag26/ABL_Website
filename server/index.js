@@ -1,11 +1,18 @@
 import express from "express";
 import session from "express-session";
-//import pg from "pg";
-import PgSession from "connect-pg-simple";
-import { sequelize, connection } from "./postgres/postgres.js";
 import cors from "cors"; // Import CORS middleware
-import eventRoutes from "./Routes/eventRoutes.js"; // Import event routes
+import cookieParser from "cookie-parser";
+
+import { sequelize, connection } from "./postgres/postgresmodel.js";
+
+import eventRoutes from "./Routes/eventRoutes.js";
 import adminRoutes from "./Routes/adminRoutes.js";
+import sessionRoutes from "./Routes/sessionRoutes.js";
+import studentRoutes from "./Routes/studentRoutes.js";
+import mentorRoutes from "./Routes/mentorRoutes.js"; // 🔹 Registering mentor routes here
+
+import { validateSession } from "./middleware/authMiddleware.js";
+
 import {
   getStudentCredentials,
   verifyStudentRole,
@@ -13,35 +20,34 @@ import {
 import { getAdminCredentials } from "./controller/adminController.js";
 import { getMentorCredentials } from "./controller/mentorController.js";
 
+
 const app = express();
 
-// Session Middleware
-app.use(
-  session({
-    store: new (PgSession(session))({
-      pool: sequelize.connectionManager.pool, // Use Sequelize pool
-      tableName: "session", // Store sessions in this table
-    }),
-    secret: "mySecretKey", // Change to a strong secret
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      secure: false, // Set to true if using HTTPS
-      httpOnly: true, // Prevents client-side JS access
-      maxAge: 1000 * 60 * 60, // 1-hour session
-    },
-  })
-);
+app.use(express.json());
+app.use(cookieParser()); 
 
 // CORS Middleware
 app.use(
   cors({
     origin: "http://localhost:5173",
-    credentials: true, // Allow cookies to be sent
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
-app.use(express.json());
+// Register Routes
+app.use("/api/session", sessionRoutes);
+app.use("/api/mentor", mentorRoutes); // 🔹 This automatically includes all mentor-related routes
+app.use("/api/student", studentRoutes);
+app.use("/api/admin", adminRoutes);
+
+// 🔹 Add Protected Route Here (After Session Routes)
+app.get("/api/protected-route", validateSession, (req, res) => {
+  res.status(200).json({
+    message: "Protected route accessed successfully!",
+    user: req.user,
+  });
+});
 
 // Routes
 app.get("/students/credentials/:username", getStudentCredentials);
@@ -51,7 +57,7 @@ app.get("/mentor/credentials/:username", getMentorCredentials);
 
 // Session Check Route
 app.get("/session", (req, res) => {
-  if (req.session.user) {
+  if (req.session && req.session.user) {
     res.status(200).json(req.session.user);
   } else {
     res.status(401).json({ message: "Not logged in" });
@@ -70,7 +76,6 @@ app.post("/logout", (req, res) => {
 });
 
 app.use("/", eventRoutes);
-app.use("/add-mentor", adminRoutes);
 
 const PORT = 5000;
 app.listen(PORT, () => {

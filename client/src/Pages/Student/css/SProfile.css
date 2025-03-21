@@ -1,0 +1,48 @@
+.SProfile-main{
+    margin-top: 6cm;
+    display: flex;
+    flex-direction: column;
+}
+.Upper-SProfile{
+    display: flex;
+    flex-direction: row;
+    margin: 0.5cm;
+    border: solid 2px black;
+    padding: 0.5cm;
+    gap:5cm
+}
+table, tr, td, th{
+    border: solid 1px black;
+    padding: 10px;
+}
+.Lower-SProfile{
+    margin: 1cm;
+
+}
+.sprofile-picture {
+    width: 5cm; /* Adjust as needed */
+    height: 5cm; /* Adjust as needed */
+    overflow: hidden; /* Prevents any overflow */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%; /* Makes it circular if needed */
+}
+.sprofile-details{
+    display: flex;
+    flex-direction: column;
+}
+.profile-img {
+    width: 100%; /* Makes the image responsive inside the div */
+    height: auto; /* Maintains aspect ratio */
+    max-width: 4cm; /* Limits maximum size */
+    border-radius: 50%; /* Optional: Makes it circular */
+}
+.sprofile-pie-chart {
+    width: 9cm; /* Adjust width */
+    height: 8cm; /* Adjust height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2cm;
+}

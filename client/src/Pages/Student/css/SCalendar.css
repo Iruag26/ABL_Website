@@ -1,0 +1,53 @@
+.calendarc {
+    margin-top: 6cm;
+    margin-left: 1cm;
+    margin-right: 1cm;
+    margin-bottom: 1cm;
+    padding: 5px;
+}
+
+.fc {
+    background-color: rgb(255, 255, 255) !important;
+    padding: 10px;
+    border: solid black 1px;
+}
+
+.fc .fc-daygrid-day-frame {
+    border: 1px solid black !important;
+    /* Darkens the borders of each calendar cell */
+}
+
+
+
+/* Make the header grid lines black */
+.fc .fc-scrollgrid {
+    border-color: black !important;
+    /* Black border for the entire calendar grid */
+}
+
+.fc .fc-col-header-cell {
+    border: 1px solid black !important;
+    /* Adds black borders for header cells */
+}
+
+/* Change the color of day names (e.g., Sun, Mon, Tue) */
+/* Change the color of the day names (Sun, Mon, etc.) */
+.fc .fc-col-header-cell-cushion {
+    color: rgb(1, 0, 11) !important; /* Apply your desired color */
+    font-weight: bold; /* Optional: Make the text bold */
+  }
+  
+
+/* Change the color of dates (e.g., 1, 2, 3) */
+.fc .fc-daygrid-day-number {
+    color: rgb(34, 160, 250) !important;
+    /* Set your desired color for the dates */
+    font-weight: bold;
+    /* Optional: Make it bold */
+}
+
+/* Optional: Customize hover effects for the dates */
+.fc .fc-daygrid-day:hover {
+    background-color: #f0f0f0;
+    /* Light gray background on hover */
+}

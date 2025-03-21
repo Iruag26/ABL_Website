@@ -67,9 +67,11 @@ export const fetchEvents = async (req, res) => {
 
 export const fetchEvents2 = async (req, res) => {
   try {
-    // Fetch only specific fields
+    // Fetch only specific fields, order by date descending and limit to 20 events
     const events = await Events.findAll({
-      attributes: ["e_name","e_img","e_type","e_category","e_date","e_org","e_link"], 
+      attributes: ["e_name", "e_img", "e_type", "e_category", "e_date", "e_org", "e_link"],
+      order: [["e_date", "DESC"]], // sorts by date (latest first)
+      limit: 20, // return only 20 events
     });
     res.status(200).json(events); // Respond with the fetched events
   } catch (error) {

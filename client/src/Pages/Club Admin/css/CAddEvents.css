@@ -1,0 +1,30 @@
+.cad-event-form {
+    margin: 7cm 1cm 1cm 1cm;
+    background-color: rgb(2, 48, 47);
+    padding: 1cm;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;      /* Allows items to wrap into new rows if needed */
+    align-items: center;  /* Vertically center items in each row */
+    gap: 1rem;           /* Space between form items */
+    border-radius: 1cm;
+    border: 10px solid rgb(255, 255, 255);
+    
+}
+
+.cad-add-event-text {
+    color: aliceblue;
+    padding-top: 10px;
+    padding-bottom: 3px;
+}
+
+.form-control-1,
+.form-select-1 {
+    width: 100%;
+    min-width: 250px; /* Ensures a consistent width */
+    max-width: 300px; /* Prevents excessive stretching */
+    border-radius: 7px;
+    background-color: azure;
+    border: 1px solid black;
+    padding: 1px;
+}

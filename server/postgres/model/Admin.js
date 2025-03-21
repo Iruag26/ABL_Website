@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import { sequelize } from "../postgres.js"; // Ensure this path is correct
+import { sequelize } from "../postgresmodel.js"; // Ensure this path is correct
 
 const Admin = sequelize.define(
     "admin",

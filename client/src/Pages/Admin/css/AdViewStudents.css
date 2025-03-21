@@ -1,0 +1,63 @@
+/* Main Container */
+.adview-students-main {
+    margin-top: 6cm;
+    padding: 2cm;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Title */
+.adview-students-main h5 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1cm;
+    color: #333;
+}
+
+/* Dropdown Container */
+.dropdown-container {
+    display: flex;
+    flex-direction: row;
+    gap: 1cm; /* Space between dropdowns */
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 1cm;
+}
+
+/* Dropdown Styling */
+.dropdown-container select {
+    font-size: 1rem;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    width: 6cm;
+    transition: all 0.3s ease-in-out;
+}
+
+.dropdown-container select:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.4);
+}
+
+/* Fetch Button */
+.dropdown-container button {
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: #033757;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    height: 1cm;
+    width: 4cm;
+
+}
+
+.dropdown-container button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}

@@ -1,0 +1,7 @@
+.mentor-view-main{
+    margin-top: 4.5cm;
+    padding: 1.5cm;
+    display: flex;
+    flex-direction: column;
+    gap: 1cm;
+}

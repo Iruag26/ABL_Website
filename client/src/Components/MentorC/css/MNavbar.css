@@ -1,0 +1,51 @@
+.navbar{
+    display: flex;
+    flex-direction: row;
+    background-color: #393E46;
+    margin-top: 3.25cm;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5cm 0.5cm;
+    position: fixed;
+    top: 0;            /* Sticks it to the top */
+    left: 0;           /* Ensures full width */
+    z-index: 1000; 
+}
+.navbar-mmnav{
+    display: flex;
+    flex-direction: row;
+    color: aliceblue !important;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15cm;
+}
+.links-mnav{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: aliceblue !important;
+    gap: 1cm;
+    margin-left: 0.25cm;
+}
+.nav-link{
+    color:aliceblue;
+}
+.logout-btn{
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    gap: 1cm;
+}
+.mentor-profile-icon{
+    color: aliceblue;
+}
+
+.enter-records{
+    display: flex ; 
+    flex-direction: row;
+}
+
+.mentor-role-button{
+    margin-left: 2cm;
+}

@@ -1,0 +1,65 @@
+/* AdProfile.css */
+
+.admin-profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    background: #f4f4f4;
+    padding: 20px;
+    margin-top: 4cm;
+  }
+  
+  .admin-profile-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    max-width: 400px;
+    width: 100%;
+    padding: 20px;
+  }
+  
+  .admin-profile-image img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #007bff;
+  }
+  
+  .admin-profile-details {
+    text-align: center;
+    margin-top: 15px;
+  }
+  
+  .admin-profile-details h2 {
+    margin-bottom: 10px;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .admin-profile-details p {
+    margin: 5px 0;
+    color: #666;
+  }
+  
+  .edit-profile-btn {
+    margin-top: 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .edit-profile-btn:hover {
+    background-color: #0056b3;
+  }
+  

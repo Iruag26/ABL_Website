@@ -1,0 +1,45 @@
+.navbar{
+    display: flex;
+    flex-direction: row;
+    background-color: #393E46;
+    margin-top: 3.25cm;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5cm 0.5cm;
+}
+.navbar-nav{
+    display: flex;
+    flex-direction: row;
+    color: aliceblue !important;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15cm;
+}
+.links-snav{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: aliceblue !important;
+}
+.nav-link{
+    color:aliceblue;
+}
+.logout{
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    gap: 1cm;
+}
+.student-profile-icon{
+    color: aliceblue;
+}
+
+.enter-records{
+    display: flex ; 
+    flex-direction: row;
+}
+
+.student-role-button{
+    margin-left: 1cm;
+}

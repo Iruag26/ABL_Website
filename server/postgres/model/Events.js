@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import { sequelize } from "../postgres.js"; // Adjust the path to your setup
+import { sequelize } from "../postgresmodel.js"; // Adjust the path to your setup
 
 const Events = sequelize.define(
     "events",

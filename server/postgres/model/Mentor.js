@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import { sequelize } from "../postgres.js"; // Ensure this path is correct
+import { sequelize } from "../postgresmodel.js"; 
 
 const Mentor = sequelize.define(
   "mentors",
@@ -7,20 +7,21 @@ const Mentor = sequelize.define(
     m_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true,
+      autoIncrement: true,  // ✅ Ensure auto-increment is enabled
     },
     m_username: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true, // ✅ Prevent duplicate usernames
     },
     m_password: {
       type: DataTypes.STRING,
       allowNull: false,
     },
     m_name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
   { tableName: "mentors", timestamps: false }
 );

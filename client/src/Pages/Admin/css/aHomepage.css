@@ -1,0 +1,28 @@
+.admin-homepage {
+    margin-top: 2cm;
+    height: 100vh; /* Full height to center the text */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #033757; /* Adjust color as needed */
+    animation: floatingText 3s ease-in-out infinite; /* Continuous animation */
+}
+
+/* Animation Keyframes */
+@keyframes floatingText {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(-15px);
+        opacity: 0.7;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

@@ -1,0 +1,66 @@
+.main-box{
+    margin: 6cm auto 6cm auto; /* Centers horizontally and adds top & bottom spacing */
+    height: auto;
+    width: 30cm; /* Set the correct width */
+    background-color: #011f27;
+    border: solid black 2px;
+    border-radius: 1cm;
+    padding: 20px;
+}
+
+/* 🔹 Allow items to break to the next row */
+.form2 {
+    display: flex;
+    flex-wrap: wrap; /* Allows items to wrap onto the next row */
+    justify-content: space-between;
+}
+.form-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%; 
+}
+
+/* Ensures all dropdowns & inputs remain the same width */
+.form-control-2, .form-select-2 {
+    width: 100%;
+    min-width: 250px; /* Ensures a consistent width */
+    max-width: 300px; /* Prevents excessive stretching */
+    border-radius: 7px;
+    background-color: azure;
+    border: solid black 1px;
+    padding-left: 10px;  
+}
+
+/* 🔹 Ensure each label + input takes the full row */
+.form2 .add-event-text, 
+.form2 .form-control-2, 
+.form2 .form-select-2 {
+    width: 100%; /* Makes each input take full width of container */
+    margin-bottom: 10px; /* Adds space between rows */
+}
+.add-event-text{
+    color: aliceblue;
+}
+
+.add-event-text-header {
+    color: aliceblue;
+    font-size: 0.85cm;
+    margin-bottom: 1cm;
+}
+
+.form-label {
+    color: aliceblue;
+}
+
+.form-control, .form-select {
+    width: 100%; /* Ensures proper width */
+    border-radius: 7px;
+    background-color: azure;
+    border: solid black 1px;
+    padding-left: 1cm;  
+}
+
+.entry-buttons {
+    margin-bottom: 10px;
+}

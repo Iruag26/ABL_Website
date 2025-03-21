@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import { sequelize } from "../postgres.js";
+import { sequelize } from "../postgresmodel.js";
 
 const StudentRoleMap = sequelize.define(
   "student_role_map",
