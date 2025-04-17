@@ -1,130 +1,22 @@
-// import React, { useEffect, useState } from "react";
-// import SNavbar from "../../Components/StudentC/SNavbar";
-// import "./css/sHomepage.css";
-// import event1img from "../../assets/event1.jpeg";
-// import event2img from "../../assets/event2.jpeg";
-// import event3img from "../../assets/event3.png";
-
-// const sHomepage = () => {
-//   const [events, setEvents] = useState([]);
-//   const [loading, setLoading] = useState(true);
-
-//   useEffect(() => {
-//     const getEvents = async () => {
-//       try {
-//         const eventData = await fetchEvents2();
-//         console.log("Fetched events:", eventData);
-//         setEvents(eventData);
-//       } catch (error) {
-//         console.error("Error fetching events:", error);
-//       } finally {
-//         setLoading(false);
-//       }
-//     };
-//     getEvents();
-//   }, []);
-
-//   // Dummy static cards array for demonstration (20 items)
-//   const dummyCards = Array.from({ length: 20 }, (_, index) => ({
-//     id: index + 1,
-//     title: `Sample Event ${index + 1}`,
-//     text: `This is sample text for event ${index + 1}.`,
-//     date: "2025-12-31",
-//     organizer: "Sample Organizer",
-//     url: "#",
-//     // You can set a placeholder image or use one of your imports
-//     image: event1img,
-//   }));
-
-//   return (
-//     <div>
-//       <SNavbar />
-//       <div id="carouselExampleFade" className="news carousel slide carousel-fade">
-//         <div className="carousel-inner">
-//           <div className="carousel-item active">
-//             <img src={event1img} className="d-block w-100" alt="Event 1" />
-//           </div>
-//           <div className="carousel-item">
-//             <img src={event2img} className="d-block w-100" alt="Event 2" />
-//           </div>
-//           <div className="carousel-item">
-//             <img src={event3img} className="d-block w-100" alt="Event 3" />
-//           </div>
-//         </div>
-//         <button
-//           className="carousel-control-prev"
-//           type="button"
-//           data-bs-target="#carouselExampleFade"
-//           data-bs-slide="prev"
-//         >
-//           <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-//           <span className="visually-hidden">Previous</span>
-//         </button>
-//         <button
-//           className="carousel-control-next"
-//           type="button"
-//           data-bs-target="#carouselExampleFade"
-//           data-bs-slide="next"
-//         >
-//           <span className="carousel-control-next-icon" aria-hidden="true"></span>
-//           <span className="visually-hidden">Next</span>
-//         </button>
-//       </div>
-//       <div className="event-info-cards-section container my-4">
-//         <h2 className="text-center mb-4">Latest Events</h2>
-//         <div className="row">
-//           {dummyCards.map((card) => (
-//             <div className="col-md-3 mb-4" key={card.id}>
-//               <div className="card">
-//                 <img
-//                   src={card.image}
-//                   className="card-img-top"
-//                   alt={card.title}
-//                 />
-//                 <div className="card-body">
-//                   <h5 className="card-title">{card.title}</h5>
-//                   <p className="card-text">{card.text}</p>
-//                   <p className="card-text">
-//                     <small className="text-muted">Date: {card.date}</small>
-//                   </p>
-//                   <p className="card-text">
-//                     <small className="text-muted">
-//                       Organizer: {card.organizer}
-//                     </small>
-//                   </p>
-//                   <a href={card.url} className="btn btn-primary">
-//                     More Info
-//                   </a>
-//                 </div>
-//               </div>
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default sHomepage;
-
 import React, { useEffect, useState } from "react";
 import SNavbar from "../../Components/StudentC/SNavbar";
 import "./css/sHomepage.css";
-import event1img from "../../assets/event1.jpeg";
-import event2img from "../../assets/event2.jpeg";
-import event3img from "../../assets/event3.png";
-import event4img from "../../assets/event4.jpg";
+import { fetchLatest20Events } from "../../api/studentApi";
+import { Link } from "react-router-dom";
 
 const sHomepage = () => {
   const [events, setEvents] = useState([]);
+  const [filteredEvents, setFilteredEvents] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [monthFilter, setMonthFilter] = useState("");
+  const [typeFilter, setTypeFilter] = useState("");
 
   useEffect(() => {
     const getEvents = async () => {
       try {
-        const eventData = await fetchEvents2();
-        console.log("Fetched events:", eventData);
+        const eventData = await fetchLatest20Events();
         setEvents(eventData);
+        setFilteredEvents(eventData);
       } catch (error) {
         console.error("Error fetching events:", error);
       } finally {
@@ -134,33 +26,53 @@ const sHomepage = () => {
     getEvents();
   }, []);
 
-  // Dummy static cards array for demonstration (20 items)
-  // Cycle through the four images for variety.
-  const images = [event1img, event2img, event3img, event4img];
-  const dummyCards = Array.from({ length: 20 }, (_, index) => ({
-    id: index + 1,
-    title: `Sample Event ${index + 1}`,
-    text: `This is sample text for event ${index + 1}.`,
-    date: "2025-12-31",
-    organizer: "Sample Organizer",
-    url: "#",
-    image: images[index % images.length],
-  }));
+  useEffect(() => {
+    const filtered = events.filter((event) => {
+      const eventMonth = new Date(event.e_date).getMonth() + 1; // Jan = 1
+      const isMonthMatch = monthFilter
+        ? parseInt(monthFilter) === eventMonth
+        : true;
+      const isTypeMatch =
+        typeFilter === "Internal"
+          ? event.e_level === "Intra-Collegiate"
+          : typeFilter === "External"
+          ? event.e_level !== "Intra-Collegiate"
+          : true;
+      return isMonthMatch && isTypeMatch;
+    });
+    setFilteredEvents(filtered);
+  }, [monthFilter, typeFilter, events]);
+
+  const bannerImages = filteredEvents.slice(0, 4);
 
   return (
     <div>
       <SNavbar />
-      <div id="carouselExampleFade" className="news carousel slide carousel-fade">
+
+      {/* Banner Carousel */}
+      <div
+        id="carouselExampleFade"
+        className="news carousel slide carousel-fade"
+        data-bs-ride="carousel"
+        data-bs-interval="2000"
+      >
         <div className="carousel-inner">
-          <div className="carousel-item active">
-            <img src={event1img} className="d-block w-100" alt="Event 1" />
-          </div>
-          <div className="carousel-item">
-            <img src={event2img} className="d-block w-100" alt="Event 2" />
-          </div>
-          <div className="carousel-item">
-            <img src={event3img} className="d-block w-100" alt="Event 3" />
-          </div>
+          {bannerImages.map((event, index) => (
+            <div
+              className={`carousel-item ${index === 0 ? "active" : ""}`}
+              key={event.e_id}
+            >
+              <img
+                src={
+                  event.e_img
+                    ? `data:image/jpeg;base64,${event.e_img}`
+                    : "https://via.placeholder.com/1200x400?text=Event+Image"
+                }
+                className="d-block w-100"
+                alt={event.e_name}
+              />
+            </div>
+          ))}
         </div>
         <button
           className="carousel-control-prev"
@@ -168,7 +80,10 @@ const sHomepage = () => {
           data-bs-target="#carouselExampleFade"
           data-bs-slide="prev"
         >
-          <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span
+            className="carousel-control-prev-icon"
+            aria-hidden="true"
+          ></span>
           <span className="visually-hidden">Previous</span>
         </button>
         <button
@@ -177,35 +92,95 @@ const sHomepage = () => {
           data-bs-target="#carouselExampleFade"
           data-bs-slide="next"
         >
-          <span className="carousel-control-next-icon" aria-hidden="true"></span>
+          <span
+            className="carousel-control-next-icon"
+            aria-hidden="true"
+          ></span>
           <span className="visually-hidden">Next</span>
         </button>
       </div>
+
+      {/* Filters */}
+      <div className="container my-4 d-flex gap-4">
+        <div>
+          <label className="form-label ugh">Filter by Month</label>
+          <select
+            className="form-select"
+            value={monthFilter}
+            onChange={(e) => setMonthFilter(e.target.value)}
+          >
+            <option value="">All</option>
+            {Array.from({ length: 12 }, (_, i) => (
+              <option value={i + 1} key={i}>
+                {new Date(0, i).toLocaleString("default", { month: "long" })}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          <label className="form-label ugh">Type</label>
+          <select
+            className="form-select"
+            value={typeFilter}
+            onChange={(e) => setTypeFilter(e.target.value)}
+          >
+            <option value="">All</option>
+            <option value="Internal">Internal</option>
+            <option value="External">External</option>
+          </select>
+        </div>
+      </div>
+
+      {/* Event Cards */}
       <div className="event-info-cards-section container my-4">
         <h2 className="text-center mb-4">Latest Events</h2>
         <div className="row">
-          {dummyCards.map((card) => (
-            <div className="col-md-3 mb-4" key={card.id}>
-              <div className="card">
-                <img src={card.image} className="card-img-top" alt={card.title} />
-                <div className="card-body">
-                  <h5 className="card-title">{card.title}</h5>
-                  <p className="card-text">{card.text}</p>
-                  <p className="card-text">
-                    <small className="text-muted">Date: {card.date}</small>
-                  </p>
-                  <p className="card-text">
-                    <small className="text-muted">
-                      Organizer: {card.organizer}
-                    </small>
-                  </p>
-                  <a href={card.url} className="btn btn-primary">
-                    Register
-                  </a>
-                </div>
+          {loading ? (
+            <p className="text-center">Loading events...</p>
+          ) : filteredEvents.length === 0 ? (
+            <p className="text-center">No events found.</p>
+          ) : (
+            filteredEvents.map((event) => (
+              <div className="col-md-3 mb-4" key={event.e_id}>
+                <Link
+                  to={`/event-details/${event.e_id}`}
+                  className="card text-decoration-none text-dark h-100"
+                >
+                  <img
+                    src={
+                      event.e_img
+                        ? `data:image/jpeg;base64,${event.e_img}`
+                        : "https://via.placeholder.com/400x200?text=Event+Image"
+                    }
+                    className="card-img-top"
+                    alt={event.e_name}
+                  />
+                  <div className="card-body">
+                    <h5 className="card-title">{event.e_name}</h5>
+                    <p className="card-text">
+                      <small className="text-muted">
+                        Date: {event.e_date?.slice(0, 10)}
+                      </small>
+                    </p>
+                    <p className="card-text">
+                      <small className="text-muted">
+                        Organizer: {event.e_org}
+                      </small>
+                    </p>
+                    <p className="card-text">
+                      <small className="text-muted">
+                        Fee:{" "}
+                        {event.e_cost === 0 || event.e_cost === null
+                          ? "Free"
+                          : `₹${event.e_cost}`}
+                      </small>
+                    </p>
+                  </div>
+                </Link>
               </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
       </div>
     </div>

@@ -1,21 +1,24 @@
-import fetch from "node-fetch"; // Install if not available
+import axios from "axios";
 
-const testSessionAPI = async () => {
-    try {
-        const response = await fetch("http://localhost:5000/api/session/generate-token", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                username: "1021101",
-                user_type: "student"
-            })
-        });
+const URL = "http://localhost:5000/api/admin/activities/19";
 
-        const data = await response.json();
-        console.log("API Response:", data);
-    } catch (error) {
-        console.error("Error testing API:", error);
+const testStudentReport = async () => {
+  try {
+    const res = await axios.get(URL, {
+      withCredentials: true, // ⬅️ only if using sessions/cookies
+    });
+
+    console.log("✅ Success! Response from /api/admin/activities/19:");
+    console.log(JSON.stringify(res.data, null, 2)); // pretty print
+  } catch (err) {
+    console.error("❌ Error during /api/admin/activities/19 test:");
+    if (err.response) {
+      console.error("Status:", err.response.status);
+      console.error("Data:", err.response.data);
+    } else {
+      console.error(err.message);
     }
+  }
 };
 
-testSessionAPI();
+testStudentReport();

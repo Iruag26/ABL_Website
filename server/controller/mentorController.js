@@ -142,7 +142,7 @@ export const assignPoints = async (req, res) => {
   }
 
   try {
-    // ✅ **Points Mapping**
+    // ✅ Points Mapping
     const pointsMapping = {
       Technical: {
         "Attended/Organised Seminar": 1,
@@ -151,7 +151,7 @@ export const assignPoints = async (req, res) => {
         "Organized Workshop": 1,
         "Delivered Workshop": 3,
         "Attended/Organized Competition": 1,
-        "Won Competition": null, // Special case handled below
+        "Won Competition": null, // handled separately
       },
       Social: {
         "Donated Blood": 2,
@@ -159,11 +159,11 @@ export const assignPoints = async (req, res) => {
       },
       Sports: {
         "Participated": 1,
-        "Won Competition": null, // Special case handled below
+        "Won Competition": null, // handled separately
       },
       Cultural: {
         "Participated": 1,
-        "Won Competition": null, // Special case handled below
+        "Won Competition": null, // handled separately
       },
       Internship: {
         "Technical Internship": 3,
@@ -180,21 +180,25 @@ export const assignPoints = async (req, res) => {
       "International Level": 5,
     };
 
-    // ✅ **Assign Points**
-    let points = pointsMapping[a_type]?.[a_sub_type] || 0;
+    // ✅ Calculate points
+    let points;
+    console.log("🔥 assignPoints function called");
 
-    // If "Won Competition", add points based on a_level
-    if (a_sub_type === "Won Competition" && a_level) {
-      points = levelMapping[a_level] || 0;
+    if (a_sub_type === "Won Competition") {
+      console.log("a_level:", a_level);
+      points = levelMapping[a_level];
+      console.log("a_level points:", points);
+    } else {
+      points = pointsMapping[a_type]?.[a_sub_type] ?? 0;
     }
 
-    // ✅ **Update Database**
-    const updatedActivity = await StudentActivityParticipation.update(
+    // ✅ Update the activity
+    const updated = await StudentActivityParticipation.update(
       { a_points_scored: points, a_status: "Approved" },
       { where: { a_id } }
     );
 
-    if (!updatedActivity) {
+    if (updated[0] === 0) {
       return res.status(404).json({ error: "Activity not found" });
     }
 
@@ -205,3 +209,114 @@ export const assignPoints = async (req, res) => {
   }
 };
 
+export const deleteStudentActivity = async (req, res) => {
+  const { a_id } = req.params;
+
+  try {
+    const deleted = await StudentActivityParticipation.destroy({ where: { a_id } });
+
+    if (deleted === 0) {
+      return res.status(404).json({ error: "Activity not found" });
+    }
+
+    return res.status(200).json({ message: "Activity deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting activity:", error);
+    return res.status(500).json({ error: "Failed to delete activity" });
+  }
+};
+
+export const getMentorBasicInsights = async (req, res) => {
+  try {
+    const { mentorId } = req.params;
+
+    const mentor = await Mentor.findOne({
+      where: { m_id: mentorId },
+      attributes: ["m_id", "m_name"],
+    });
+
+    const info = await MentorInfo.findOne({
+      where: { m_id: mentorId },
+      attributes: ["m_batch", "m_sem", "m_csec", "m_branch"],
+    });
+
+    if (!mentor || !info) {
+      return res.status(404).json({ error: "Mentor not found" });
+    }
+
+    // Count students under the mentor's batch-sem-sec-branch
+    const studentCount = await StudentInfo.count({
+      where: {
+        s_batch: info.m_batch,
+        s_sem: info.m_sem,
+        s_csec: info.m_csec,
+        s_branch: info.m_branch,
+      },
+    });
+
+    return res.status(200).json({
+      m_id: mentor.m_id,
+      m_name: mentor.m_name,
+      m_batch: info.m_batch,
+      m_sem: info.m_sem,
+      m_csec: info.m_csec,
+      m_branch: info.m_branch,
+      total_students: studentCount,
+    });
+  } catch (error) {
+    console.error("Error in getMentorBasicInsights:", error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+export const getMentorProfileFromSession = async (req, res) => {
+  try {
+    const sessionToken = req.cookies?.sessionToken;
+    if (!sessionToken) {
+      return res.status(401).json({ message: "Unauthorized. No session token." });
+    }
+
+    const session = await Session.findOne({
+      where: { session_token: sessionToken, user_type: "mentor" },
+    });
+
+    if (!session) {
+      return res.status(401).json({ message: "Invalid or expired session." });
+    }
+
+    const mentorId = parseInt(session.user_id.split("-")[4]);
+
+    const mentor = await Mentor.findOne({
+      where: { m_id: mentorId },
+      attributes: ["m_id", "m_username", "m_name"],
+    });
+
+    const info = await MentorInfo.findOne({
+      where: { m_id: mentorId },
+      attributes: ["m_batch", "m_sem", "m_csec", "m_branch"],
+    });
+
+    const total_students = await StudentInfo.count({
+      where: {
+        s_batch: info.m_batch,
+        s_sem: info.m_sem,
+        s_csec: info.m_csec,
+        s_branch: info.m_branch,
+      },
+    });
+
+    return res.status(200).json({
+      m_id: mentor.m_id,
+      m_username: mentor.m_username,
+      m_name: mentor.m_name,
+      m_batch: info.m_batch,
+      m_sem: info.m_sem,
+      m_csec: info.m_csec,
+      m_branch: info.m_branch,
+      total_students,
+    });
+  } catch (error) {
+    console.error("Error fetching mentor profile:", error);
+    return res.status(500).json({ message: "Server error" });
+  }
+};

@@ -43,3 +43,7 @@
 .student-role-button{
     margin-left: 1cm;
 }
+.nav-link.active {
+    border-bottom: 2px solid white;
+  }
+  

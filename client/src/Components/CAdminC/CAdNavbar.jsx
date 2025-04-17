@@ -1,8 +1,7 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import './css/CAdNavbar.css';
 
-// ✅ Step 1: Check if AdNavbar is being imported & rendered
 console.log("✅ AdNavbar component is being rendered.");
 
 const CAdNavbar = () => {
@@ -10,14 +9,14 @@ const CAdNavbar = () => {
 
   const handleLogout = async () => {
     try {
-      console.log("🛑 Logging out..."); // ✅ Step 2: Check if Logout Function 
+      console.log("🛑 Logging out...");
       const response = await fetch("http://localhost:5000/api/session/logout", {
         method: "POST",
-        credentials: "include", // Ensures cookies are cleared
+        credentials: "include",
       });
 
       const data = await response.json();
-      console.log("✅ Logout response:", data); // ✅ Step 3: Check Response
+      console.log("✅ Logout response:", data);
 
       if (response.ok) {
         console.log("✅ Logout successful. Navigating to /");
@@ -30,21 +29,17 @@ const CAdNavbar = () => {
     }
   };
 
-  console.log("✅ Navbar JSX is being returned."); // ✅ Step 4: Check if JSX is being returned
+  console.log("✅ Navbar JSX is being returned.");
 
   return (
     <div>
       <nav className="navbar navbar-expand-lg">
         <div className="admin-role-button">
-          <button>
-            club admin
-          </button>
+          <button>Club Admin</button>
         </div>
         <div className="container-fluid">
-          {/* ✅ Step 5: Check if Navbar Container Renders */}
           {console.log("✅ Navbar container \\\\\\ being rendered.")}
 
-          {/* Navbar Toggler for Collapse */}
           <button
             className="navbar-toggler"
             type="button"
@@ -60,16 +55,14 @@ const CAdNavbar = () => {
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup-s">
             <div className="navbar-nav">
               <div className="links-adnav">
-                <a className="nav-link" href="/cHomepage">Home</a>
-                <a className="nav-link" href="/cadd-events">Add Events</a>
-                <a className="nav-link" href="/cadmin-calendar">View Calendar</a>
-
+                <NavLink className="nav-link" to="/cHomepage">Home</NavLink>
+                <NavLink className="nav-link" to="/cadd-events">Add Events</NavLink>
+                <NavLink className="nav-link" to="/cadmin-calendar">View Calendar</NavLink>
               </div>
               <div className="logout profile">
                 <a href="/cprofile">
-                  <i className="bi bi-person-circle admin-profile-icon fs-4"></i>
+                  <i className="bi bi-person-circle cadmin-profile-icon fs-4"></i>
                 </a>
-                {/* 🔹 Logout Button */}
                 <button className="logout-btn" onClick={handleLogout}>
                   <i className="bi bi-box-arrow-right fs-4"></i>
                 </button>

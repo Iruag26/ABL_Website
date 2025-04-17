@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import AdNavbar from "../../Components/AdminC/AdNavbar";
 import "./css/AddMentor.css";
-import { addMentor } from "../../api/mentorAddApi"; // Updated API function
+import { addMentor } from "../../api/mentorAddApi";
 
 const AddMentor = () => {
   const [formData, setFormData] = useState({
@@ -14,21 +14,19 @@ const AddMentor = () => {
     m_branch: "",
   });
 
-  const [errors, setErrors] = useState({}); // State to track validation errors
+  const [errors, setErrors] = useState({});
 
   const branches = ["Computer", "Mechanical", "EXTC", "IT", "Electrical"];
-  const semesters = Array.from({ length: 8 }, (_, i) => (i + 1).toString()); // ["1", "2", ..., "8"]
+  const semesters = Array.from({ length: 8 }, (_, i) => (i + 1).toString());
   const sections = ["A", "B"];
   const batches = ["1", "2", "3", "4"];
 
-  // Handle changes for form inputs
   const handleInputChange = (e) => {
     const { id, value } = e.target;
     setFormData({ ...formData, [id]: value });
-    setErrors({ ...errors, [id]: "" }); // Clear error when user starts typing
+    setErrors({ ...errors, [id]: "" });
   };
 
-  // ✅ Form Validation Function
   const validateForm = () => {
     let isValid = true;
     let newErrors = {};
@@ -47,16 +45,23 @@ const AddMentor = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!validateForm()) {
-      return; // Stop submission if validation fails
-    }
+    if (!validateForm()) return;
 
     try {
       await addMentor(formData);
-      alert("Mentor added successfully!");
+      alert("✅ Mentor added successfully!");
+      setFormData({
+        m_username: "",
+        m_password: "",
+        m_name: "",
+        m_batch: "",
+        m_sem: "",
+        m_csec: "",
+        m_branch: "",
+      }); // 🔄 Reset form
     } catch (error) {
       console.error("Error adding mentor:", error);
-      alert("Failed to add mentor.");
+      alert("❌ Failed to add mentor.");
     }
   };
 
@@ -66,7 +71,6 @@ const AddMentor = () => {
       <form className="main-box row g-3 needs-validation" onSubmit={handleSubmit} noValidate>
         <div className="add-mentor-text"> Assign a Mentor to Batch </div>
 
-        {/* Mentor Authentication Details */}
         <div className="col-sm-4">
           <label htmlFor="m_name" className="form-label">Name</label>
           <input type="text" className="form-control" id="m_name" value={formData.m_name} onChange={handleInputChange} />
@@ -85,7 +89,6 @@ const AddMentor = () => {
           {errors.m_password && <small className="text-danger">{errors.m_password}</small>}
         </div>
 
-        {/* Mentor Details */}
         <div className="col-sm-4">
           <label htmlFor="m_batch" className="form-label">Batch</label>
           <select className="form-control" id="m_batch" value={formData.m_batch} onChange={handleInputChange}>

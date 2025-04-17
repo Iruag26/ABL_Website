@@ -1,0 +1,15 @@
+/* Add a wrapper with padding instead of margin for layout spacing */
+.event-details-wrapper {
+  padding-top: 6cm; /* Works better than margin if navbar is fixed */
+}
+
+.event-details-container {
+  background-color: #f8f9fa;
+  padding: 2rem;
+  border-radius: 10px;
+}
+
+.event-description {
+  white-space: pre-line;
+  margin-top: 1rem;
+}

@@ -1,8 +1,7 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom"; // ✅ use NavLink instead of <a>
 import './css/AdNavbar.css';
 
-// ✅ Step 1: Check if AdNavbar is being imported & rendered
 console.log("✅ AdNavbar component is being rendered.");
 
 const AdNavbar = () => {
@@ -10,14 +9,14 @@ const AdNavbar = () => {
 
   const handleLogout = async () => {
     try {
-      console.log("🛑 Logging out..."); // ✅ Step 2: Check if Logout Function 
+      console.log("🛑 Logging out...");
       const response = await fetch("http://localhost:5000/api/session/logout", {
         method: "POST",
-        credentials: "include", // Ensures cookies are cleared
+        credentials: "include",
       });
 
       const data = await response.json();
-      console.log("✅ Logout response:", data); // ✅ Step 3: Check Response
+      console.log("✅ Logout response:", data);
 
       if (response.ok) {
         console.log("✅ Logout successful. Navigating to /");
@@ -30,21 +29,17 @@ const AdNavbar = () => {
     }
   };
 
-  console.log("✅ Navbar JSX is being returned."); // ✅ Step 4: Check if JSX is being returned
+  console.log("✅ Navbar JSX is being returned.");
 
   return (
     <div>
       <nav className="navbar navbar-expand-lg">
         <div className="admin-role-button">
-          <button>
-            admin
-          </button>
+          <button>Admin</button>
         </div>
         <div className="container-fluid">
-          {/* ✅ Step 5: Check if Navbar Container Renders */}
           {console.log("✅ Navbar container \\\\\\ being rendered.")}
 
-          {/* Navbar Toggler for Collapse */}
           <button
             className="navbar-toggler"
             type="button"
@@ -60,18 +55,16 @@ const AdNavbar = () => {
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup-s">
             <div className="navbar-nav">
               <div className="links-adnav">
-                <a className="nav-link" href="/aHomepage">Home</a>
-                <a className="nav-link" href="/add-events">Add Events</a>
-                <a className="nav-link" href="/add-mentor">Add Mentor</a>
-                <a className="nav-link" href="/ad-view-mentor">View Mentor</a>
-                <a className="nav-link" href="/ad-view-students">View Students</a>
-
+                <NavLink className="nav-link" to="/aHomepage">Home</NavLink>
+                <NavLink className="nav-link" to="/add-events">Add Events</NavLink>
+                <NavLink className="nav-link" to="/add-mentor">Add Mentor</NavLink>
+                <NavLink className="nav-link" to="/ad-view-mentor">View Mentor</NavLink>
+                <NavLink className="nav-link" to="/ad-view-students">View Students</NavLink>
               </div>
               <div className="logout profile">
                 <a href="/adprofile">
                   <i className="bi bi-person-circle admin-profile-icon fs-4"></i>
                 </a>
-                {/* 🔹 Logout Button */}
                 <button className="logout-btn" onClick={handleLogout}>
                   <i className="bi bi-box-arrow-right fs-4"></i>
                 </button>

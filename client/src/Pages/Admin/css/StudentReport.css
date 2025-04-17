@@ -1,0 +1,57 @@
+
+.student-report {
+  padding: 30px;
+  width: 100%;
+  background-color: #bcf4ff; /* light blue background */
+  color: black;
+  font-size: 14px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Header with logo */
+.report-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.fcrit-logo {
+  width: 80px;
+  height: auto;
+  margin: 10px;
+}
+
+/* Centered headings */
+.student-report .text-center {
+  text-align: center;
+  width: 100%;
+}
+
+/* Info section */
+.student-info p {
+  margin: 4px 0;
+}
+
+/* Table styling */
+.student-report table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+  background-color: white;
+}
+
+.student-report th,
+.student-report td {
+  border: 1px solid #000;
+  padding: 8px;
+  text-align: center;
+}
+
+/* Signatures */
+.student-report .d-flex {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+  font-weight: bold;
+}

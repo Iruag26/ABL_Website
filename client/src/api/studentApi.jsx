@@ -82,3 +82,69 @@ export const fetchStudentActivityInfo = async () => {
     return null;
   }
 };
+
+export const updateStudentActivity = async (a_id, updatedData) => {
+  try {
+    const response = await axios.put(`http://localhost:5000/api/student/update-activity/${a_id}`, updatedData, {
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Error updating student activity:", error);
+    throw error;
+  }
+};
+
+const convertBlobToBase64 = (bufferData) => {
+  return new Promise((resolve) => {
+    const base64String = btoa(
+      new Uint8Array(bufferData).reduce((data, byte) => data + String.fromCharCode(byte), "")
+    );
+    resolve(base64String);
+  });
+};
+
+export const fetchLatest20Events = async () => {
+  try {
+    const response = await axios.get("http://localhost:5000/api/student/latest", {
+      withCredentials: true,
+    });
+
+    const events = await Promise.all(
+      response.data.map(async (event) => {
+        let imageBase64 = null;
+
+        if (event.e_img?.data) {
+          imageBase64 = await convertBlobToBase64(event.e_img.data);
+        }
+
+        return {
+          ...event,
+          e_img: imageBase64,
+        };
+      })
+    );
+
+    return events;
+  } catch (error) {
+    console.error("❌ Error fetching events:", error);
+    return [];
+  }
+};
+
+
+// Fetch single event by ID
+export const fetchEventById = async (e_id) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/events/${e_id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching event by ID:", error);
+    throw error;
+  }
+};
+

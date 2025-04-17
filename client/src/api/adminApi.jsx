@@ -45,3 +45,43 @@ export const fetchStudentsByFilters = async (section, branch, semester) => {
     return [];
   }
 };
+
+export const updateMentorDetails = async (m_id, updatedData) => {
+  try {
+    const response = await fetch(`http://localhost:5000/api/admin/update_mentor/${m_id}`, {
+      method: "PUT",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedData),
+    });
+
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error);
+    return data;
+  } catch (error) {
+    console.error("Failed to update mentor:", error);
+    throw error;
+  }
+};
+
+// api/adminApi.js
+export const fetchMentorInsights = async (mentorId) => {
+  const res = await fetch(`http://localhost:5000/api/admin/mentor-insights/${mentorId}`, {
+    credentials: "include"
+  });
+  const data = await res.json();
+  return data;
+};
+
+// ✅ New function to fetch type-wise student points
+export const fetchStudentsTypeWise = async (section, branch, semester) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/api/admin/getStudentsTypeWise`, {
+      params: { section, branch, semester },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching type-wise students:", error);
+    return [];
+  }
+};

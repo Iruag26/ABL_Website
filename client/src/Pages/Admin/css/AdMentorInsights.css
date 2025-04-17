@@ -1,0 +1,16 @@
+.ad-mentor-insights-wrapper {
+    padding-top: 6cm;
+    padding-bottom: 40px;
+  }
+  
+  .mentor-info-table-ad {
+    max-width: 700px;
+    margin: 0 auto;
+    background-color: #fff;
+  }
+  
+  .mentor-activity-chart  {
+    height: 10cm;
+    width: auto;
+    margin: 0 auto;
+  }

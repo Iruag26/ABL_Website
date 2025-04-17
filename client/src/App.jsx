@@ -21,11 +21,14 @@ import SHomepage from "./Pages/Student/sHomepage";
 import SMakeEntry from "./Pages/Student/SMakeEntry";
 import SCalendar from "./Pages/Student/SCalendar";
 import SProfile from "./Pages/Student/SProfile";
+import EventDetails from "./Pages/Student/EventDetails";
 
 {/*Club Admin Pages*/}
 import CHomepage from "./Pages/Club Admin/cHomepage";
 import CAddEvents from "./Pages/Club Admin/CAddEvents";
 import CAdCalendar from "./Pages/Club Admin/CAdCalendar";
+import CProfile from "./Pages/Club Admin/CProfile";
+
 {/*Admin Pages*/}
 import AHomepage from "./Pages/Admin/aHomepage";
 import AddMentor from "./Pages/Admin/AddMentor";
@@ -33,6 +36,7 @@ import AddEvents from "./Pages/Admin/AddEvents";
 import AdViewStudents from "./Pages/Admin/AdViewStudents";
 import AdViewMentor from "./Pages/Admin/AdViewMentor";
 import Adprofile from "./Pages/Admin/Adprofile";
+import AdMentorInsights from "./Pages/Admin/AdMentorInsights";
 
 const App = () => {
   return (
@@ -61,6 +65,8 @@ const App = () => {
         <Route path="/make-entry" element={<SMakeEntry />} />
         <Route path="/student-calendar" element={<SCalendar />} />
         <Route path="/profile" element={<SProfile />} />
+        <Route path="/event-details/:e_id" element={<EventDetails />} />
+
 
         {/* Admin Pages */}
         <Route path="/aHomepage" element={<AHomepage />} />
@@ -69,6 +75,8 @@ const App = () => {
         <Route path="/ad-view-students" element={<AdViewStudents />} />
         <Route path="/ad-view-mentor" element={<AdViewMentor />} />
         <Route path="/adprofile" element={<Adprofile />} />
+        <Route path="/admin/mentor-insights/:mentorId" element={<AdMentorInsights />} />
+
 
         
 
@@ -76,6 +84,8 @@ const App = () => {
         <Route path="/cHomepage" element={<CHomepage />} />
         <Route path="/cadd-events" element={<CAddEvents />} />
         <Route path="/cadmin-calendar" element={<CAdCalendar />} />
+        <Route path="/cprofile" element={<CProfile />} />
+
 
       </Routes>
     </Router>

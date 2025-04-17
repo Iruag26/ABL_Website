@@ -8,7 +8,6 @@
 
 /* Ensure table is properly spaced and centered */
 .details-table {
-    margin-top: 30px;
     width: 89%;
     border-collapse: collapse;
     text-align: left;
@@ -30,3 +29,35 @@
 }
 
 
+.action-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+  }
+  
+  .approve-btn {
+    color: green;
+  }
+  
+  .delete-btn {
+    color: red;
+  }
+.mentor-filters{
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  align-self: flex-start;
+  margin-left: 50px;
+  gap: 30px;
+}
+
+.mentor-filter-type,
+.mentor-filter-status,
+.mentor-filter-level {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 4cm;
+  font-size: 15px;
+}

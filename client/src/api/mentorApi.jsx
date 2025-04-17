@@ -77,3 +77,46 @@ export const AssignActivityPoints = async (a_id, a_type, a_sub_type, a_level) =>
     return null;
   }
 };
+
+export const DeleteActivity = async (a_id) => {
+  try {
+    const response = await fetch(`http://localhost:5000/api/mentor/delete_activity/${a_id}`, {
+      method: "DELETE",
+      credentials: "include",
+    });
+    const result = await response.json();
+    return response.ok;
+  } catch (error) {
+    console.error("Error deleting activity:", error);
+    return false;
+  }
+};
+
+export const fetchMentorProfile = async () => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/api/mentor/profile`, {
+      withCredentials: true, // 🔥 Session token in cookies
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching mentor profile:", error);
+    throw error;
+  }
+};
+
+export const fetchStudentSemSec = async (s_id_list) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/mentor/students/info-by-id`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ids: s_id_list }),
+    });
+
+    return await response.json();
+  } catch (error) {
+    console.error("❌ Error fetching sem & sec:", error);
+    return [];
+  }
+};
