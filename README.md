@@ -1,4 +1,3 @@
-```markdown
 # 🚀 ABL Website - Activity-Based Learning Portal
 
 A dynamic web portal to track, verify, and report student co-curricular and extra-curricular activities for **FR. C. Rodrigues Institute of Technology** (Autonomous), Vashi, Navi Mumbai.
@@ -134,4 +133,3 @@ Styled for professional output.
 
 This portal was developed with ❤️ as part of the final-year engineering project  
 under the Department of Computer Engineering, FCRIT (Autonomous), Navi Mumbai.
-```
